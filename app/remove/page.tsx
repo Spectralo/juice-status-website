@@ -4,8 +4,7 @@ import { Progress } from "@/components/ui/progress";
 import React from "react";
 import Realistic from "react-canvas-confetti/dist/presets/realistic";
 import { useRouter } from "next/navigation";
-import { Suspense } from "react";
-
+import { Suspense } from "react"; 
 export default function Add() {
   const [progress, setProgress] = React.useState(0);
   const [confetti, setConfetti] = React.useState(false);
@@ -52,12 +51,22 @@ export default function Add() {
     return () => clearInterval(interval);
   }, [confetti, progress, confettiFired, router]);
 
+  const decorateOptions = (defaultOptions) => {
+    return {
+      ...defaultOptions,
+      colors: [
+        "#8aadf4", "#a6da95", "#eed49f",
+        "#ed8796", "#c6a0f6", "#f0c6c6"
+      ]
+    }
+  }
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className="w-full h-screen flex flex-col items-center justify-center">
         <h1 className="mb-8 font-bold">Removing you ...</h1>
         <Progress className="w-1/2" value={progress} />
-        {confetti && <Realistic autorun={{ speed: 1 }} />}
+        {confetti && <Realistic autorun={{ speed: 1 }} decorateOptions={decorateOptions} />}
       </div>
     </Suspense>
   );
